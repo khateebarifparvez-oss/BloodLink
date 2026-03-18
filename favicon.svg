@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background rounded square -->
+  <rect width="32" height="32" rx="8" fill="#E8233A"/>
+  <!-- Blood drop shape -->
+  <path d="M16 5 C16 5, 9 13.5, 9 18.5 A7 7 0 0 0 23 18.5 C23 13.5, 16 5, 16 5Z" fill="white"/>
+  <!-- Shine highlight -->
+  <ellipse cx="13.5" cy="16" rx="1.8" ry="3" fill="rgba(255,255,255,0.35)" transform="rotate(-20 13.5 16)"/>
+</svg>

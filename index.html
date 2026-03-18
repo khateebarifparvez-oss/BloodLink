@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BloodLink — Find Donors Across India</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🩸</div>
+      <div>
+        <h1>Blood<span>Link</span></h1>
+        <p>BLOOD DONOR FINDER · INDIA</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+      <button class="btn-be-donor" onclick="openRegisterModal()">🩸 Be a Donor</button>
+      <div class="emergency-wrap">
+        <span class="emergency-label">🚨 Emergency Mode</span>
+        <div class="toggle-track" id="emergencyToggle" onclick="toggleEmergency()">
+          <div class="toggle-knob"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════
+     STATS BAR
+═══════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num" id="totalDonors">—</div>
+      <div class="stat-lbl">Total Donors</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="availableDonors">—</div>
+      <div class="stat-lbl">Available Now</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">28</div>
+      <div class="stat-lbl">State Capitals</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-lbl">Blood Groups</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════ -->
+<main>
+
+  <!-- SEARCH FILTERS -->
+  <div class="filters">
+    <div class="filter-group">
+      <label>Select City / State Capital</label>
+      <select id="citySelect">
+        <option value="">— Choose a city —</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Blood Group</label>
+      <select id="bloodSelect">
+        <option value="">All Blood Groups</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option>
+        <option>O+</option><option>O-</option>
+      </select>
+    </div>
+    <button class="btn-search" onclick="searchDonors()">Find Donors →</button>
+  </div>
+
+  <!-- SEARCH RESULTS -->
+  <div id="resultsSection" style="display:none">
+    <div id="cityPill" class="city-donors-pill"></div>
+    <div class="section-head">
+      <h2>Donors in <span id="cityName">—</span></h2>
+      <div class="result-count" id="resultCount"></div>
+    </div>
+    <div class="donor-grid" id="donorGrid"></div>
+  </div>
+
+  <!-- DEFAULT / EMPTY STATE -->
+  <div id="defaultMsg" style="text-align:center; padding: 80px 0; color: var(--muted);">
+    <div style="font-size:48px; margin-bottom:16px;">🩸</div>
+    <p style="font-family:var(--font-head); font-size:18px; color:var(--text); margin-bottom:8px;">
+      Select a city to find donors near you
+    </p>
+    <p style="font-size:14px;">We have donors across all 28 Indian state capitals</p>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════
+     CONTACT MODAL
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalName"></h3>
+    <p class="sub">Contact this donor directly</p>
+    <div class="modal-detail">
+      <div>📍</div>
+      <div>
+        <div class="label">Location</div>
+        <div class="val" id="modalCity"></div>
+      </div>
+    </div>
+    <div class="modal-detail">
+      <div>🩸</div>
+      <div>
+        <div class="label">Blood Group</div>
+        <div class="val" id="modalBlood"></div>
+      </div>
+    </div>
+    <div class="modal-detail">
+      <div>📞</div>
+      <div>
+        <div class="label">Phone Number</div>
+        <div class="val" id="modalPhone"></div>
+      </div>
+    </div>
+    <div class="modal-detail">
+      <div>📅</div>
+      <div>
+        <div class="label">Last Donated</div>
+        <div class="val" id="modalLastDonated"></div>
+      </div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     REGISTER / BE A DONOR MODAL
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="registerOverlay">
+  <div class="modal register-modal">
+
+    <!-- FORM VIEW -->
+    <div id="registerForm">
+      <div class="register-title">🩸 Become a Donor</div>
+      <p class="register-sub">Join our network and help save lives across India</p>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Full Name *</label>
+          <input type="text" id="regName" placeholder="e.g. Arjun Reddy" maxlength="60"/>
+          <div class="field-error" id="errName"></div>
+        </div>
+        <div class="form-group">
+          <label>Age *</label>
+          <input type="number" id="regAge" placeholder="e.g. 25" min="18" max="65"/>
+          <div class="field-error" id="errAge"></div>
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="regGender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Blood Group *</label>
+          <select id="regBlood">
+            <option value="">— Select —</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>AB+</option><option>AB-</option>
+            <option>O+</option><option>O-</option>
+          </select>
+          <div class="field-error" id="errBlood"></div>
+        </div>
+        <div class="form-group">
+          <label>City *</label>
+          <select id="regCity">
+            <option value="">— Select City —</option>
+          </select>
+          <div class="field-error" id="errCity"></div>
+        </div>
+        <div class="form-group full">
+          <label>Phone Number *</label>
+          <input type="tel" id="regPhone" placeholder="+91 XXXXX XXXXX" maxlength="15"/>
+          <div class="field-error" id="errPhone"></div>
+        </div>
+        <div class="form-group full">
+          <label>Last Donated (optional)</label>
+          <input type="month" id="regLastDonated"/>
+        </div>
+      </div>
+
+      <p class="form-note">
+        ✅ Your details will be added to the donor list immediately and visible to recipients searching your city.
+      </p>
+
+      <button class="btn-register" onclick="submitRegistration()">Register as Donor →</button>
+      <button class="modal-close" style="margin-top:10px" onclick="closeRegisterModal()">Cancel</button>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="register-success" id="registerSuccess" style="display:none">
+      <div class="big">🎉</div>
+      <h3>You're now a donor!</h3>
+      <p>
+        Thank you for joining BloodLink.<br/>
+        Your profile is now live and visible to recipients in <strong id="successCity"></strong>.
+      </p>
+      <br/>
+      <p style="font-size:13px; color:var(--muted);">Search your city below to see yourself in the list 👇</p>
+      <button class="btn-register" style="margin-top:20px" onclick="closeRegisterModal()">Done ✓</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════ -->
+<script src="script.js"></script>
+</body>
+</html>
