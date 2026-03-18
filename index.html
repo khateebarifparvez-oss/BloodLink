@@ -16,16 +16,16 @@
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon">🩸</div>
+      <div class="logo-icon"></div>
       <div>
         <h1>Blood<span>Link</span></h1>
         <p>BLOOD DONOR FINDER · INDIA</p>
       </div>
     </div>
     <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
-      <button class="btn-be-donor" onclick="openRegisterModal()">🩸 Be a Donor</button>
+      <button class="btn-be-donor" onclick="openRegisterModal()"> Be a Donor</button>
       <div class="emergency-wrap">
-        <span class="emergency-label">🚨 Emergency Mode</span>
+        <span class="emergency-label"> Emergency Mode</span>
         <div class="toggle-track" id="emergencyToggle" onclick="toggleEmergency()">
           <div class="toggle-knob"></div>
         </div>
@@ -96,7 +96,7 @@
 
   <!-- DEFAULT / EMPTY STATE -->
   <div id="defaultMsg" style="text-align:center; padding: 80px 0; color: var(--muted);">
-    <div style="font-size:48px; margin-bottom:16px;">🩸</div>
+    <div style="font-size:48px; margin-bottom:16px;"></div>
     <p style="font-family:var(--font-head); font-size:18px; color:var(--text); margin-bottom:8px;">
       Select a city to find donors near you
     </p>
@@ -113,28 +113,28 @@
     <h3 id="modalName"></h3>
     <p class="sub">Contact this donor directly</p>
     <div class="modal-detail">
-      <div>📍</div>
+      <div></div>
       <div>
         <div class="label">Location</div>
         <div class="val" id="modalCity"></div>
       </div>
     </div>
     <div class="modal-detail">
-      <div>🩸</div>
+      <div></div>
       <div>
         <div class="label">Blood Group</div>
         <div class="val" id="modalBlood"></div>
       </div>
     </div>
     <div class="modal-detail">
-      <div>📞</div>
+      <div></div>
       <div>
         <div class="label">Phone Number</div>
         <div class="val" id="modalPhone"></div>
       </div>
     </div>
     <div class="modal-detail">
-      <div>📅</div>
+      <div></div>
       <div>
         <div class="label">Last Donated</div>
         <div class="val" id="modalLastDonated"></div>
@@ -152,7 +152,7 @@
 
     <!-- FORM VIEW -->
     <div id="registerForm">
-      <div class="register-title">🩸 Become a Donor</div>
+      <div class="register-title"> Become a Donor</div>
       <p class="register-sub">Join our network and help save lives across India</p>
 
       <div class="form-grid">
@@ -205,7 +205,7 @@
       </div>
 
       <p class="form-note">
-        ✅ Your details will be added to the donor list immediately and visible to recipients searching your city.
+         Your details will be added to the donor list immediately and visible to recipients searching your city.
       </p>
 
       <button class="btn-register" onclick="submitRegistration()">Register as Donor →</button>
@@ -214,7 +214,7 @@
 
     <!-- SUCCESS VIEW -->
     <div class="register-success" id="registerSuccess" style="display:none">
-      <div class="big">🎉</div>
+      <div class="big"></div>
       <h3>You're now a donor!</h3>
       <p>
         Thank you for joining BloodLink.<br/>
