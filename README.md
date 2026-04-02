@@ -16,10 +16,10 @@ BloodLink lets recipients search for blood donors across all 28 Indian state cap
 
 ## Project Structure
 bloodlink/
-├── index.html      - Page structure and markup
-├── style.css       - All styles
-├── script.js       - All logic and donor data
-└── favicon.svg     - Browser tab icon
+├── index.html - Page structure and markup
+├── style.css - All styles
+├── script.js - All logic and donor data
+└── favicon.svg - Browser tab icon
 
 ## How to Run
 1. Clone or download the repository
